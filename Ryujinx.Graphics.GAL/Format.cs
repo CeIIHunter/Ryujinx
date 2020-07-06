@@ -162,11 +162,21 @@ namespace Ryujinx.Graphics.GAL
 
     public static class FormatExtensions
     {
+        /// <summary>
+        /// Checks if the texture format is an ASTC format.
+        /// </summary>
+        /// <param name="format">Texture format</param>
+        /// <returns>True if the texture format is an ASTC format, false otherwise</returns>
         public static bool IsAstc(this Format format)
         {
             return format.IsAstcUnorm() || format.IsAstcSrgb();
         }
 
+        /// <summary>
+        /// Checks if the texture format is an ASTC Unorm format.
+        /// </summary>
+        /// <param name="format">Texture format</param>
+        /// <returns>True if the texture format is an ASTC Unorm format, false otherwise</returns>
         public static bool IsAstcUnorm(this Format format)
         {
             switch (format)
@@ -191,6 +201,11 @@ namespace Ryujinx.Graphics.GAL
             return false;
         }
 
+        /// <summary>
+        /// Checks if the texture format is an ASTC SRGB format.
+        /// </summary>
+        /// <param name="format">Texture format</param>
+        /// <returns>True if the texture format is an ASTC SRGB format, false otherwise</returns>
         public static bool IsAstcSrgb(this Format format)
         {
             switch (format)
@@ -209,6 +224,60 @@ namespace Ryujinx.Graphics.GAL
                 case Format.Astc10x10Srgb:
                 case Format.Astc12x10Srgb:
                 case Format.Astc12x12Srgb:
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Checks if the texture format is a depth, stencil or depth-stencil format.
+        /// </summary>
+        /// <param name="format">Texture format</param>
+        /// <returns>True if the format is a depth, stencil or depth-stencil format, false otherwise</returns>
+        public static bool IsDepthOrStencil(this Format format)
+        {
+            switch (format)
+            {
+                case Format.D16Unorm:
+                case Format.D24UnormS8Uint:
+                case Format.D24X8Unorm:
+                case Format.D32Float:
+                case Format.D32FloatS8Uint:
+                case Format.S8Uint:
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Checks if the texture format only has one component.
+        /// </summary>
+        /// <param name="format">Texture format</param>
+        /// <returns>True if the texture format only has one component, false otherwise</returns>
+        public static bool HasOneComponent(this Format format)
+        {
+            switch (format)
+            {
+                case Format.R8Unorm:
+                case Format.R8Snorm:
+                case Format.R8Uint:
+                case Format.R8Sint:
+                case Format.R16Float:
+                case Format.R16Unorm:
+                case Format.R16Snorm:
+                case Format.R16Uint:
+                case Format.R16Sint:
+                case Format.R32Float:
+                case Format.R32Uint:
+                case Format.R32Sint:
+                case Format.R8Uscaled:
+                case Format.R8Sscaled:
+                case Format.R16Uscaled:
+                case Format.R16Sscaled:
+                case Format.R32Uscaled:
+                case Format.R32Sscaled:
                     return true;
             }
 
